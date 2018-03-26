@@ -25,15 +25,12 @@ void filldeck(card deck[52]); /* Populates a deck of cards */
 
 void shuffle(card deck[52]); /* Randomizes the order of cards */
 
-int compareface(const void* c1,const void *c2); 
-
-
-/* compares the face value of 2 cards, suitable to pass to qsort
+int compareface(const void* c1,const void *c2); /* compares the face value of 2 cards, suitable to pass to qsort
 as the fourth argument */
 
 pairs findpairs(card *hand); /* finds any pairs in a hand */
 
-int testHighest(int pairValue, pairs highest); //find highest pair value
+int testHighest(int pairValue, pairs highest); /*find highest pair value*/
 
 int main()
 {
@@ -44,7 +41,7 @@ int main()
 	pairs numpairs[5],highest;
 	int hand,cd,winner,tmp=0;
 
-	srand(time(NULL));       /* seed the random number generator */
+	srand(time(NULL)); /* seed the random number generator */
 
 	
 	/*populate and shuffle the deck */
@@ -57,7 +54,7 @@ int main()
 	{
 		for(hand=0;hand<5;hand++)
 		{
-			/* deal the hands here */
+			/* deal the hands */
 			
 			hands[hand][cd] = deck[tmp];
 
@@ -68,24 +65,31 @@ int main()
 
 	for(hand=0;hand<5;hand++)
 	{
-		/* sort the hands here */
+		/* sort the hands */
 		qsort(hands[hand], 5, sizeof(card), compareface);
 		
 		
 		
-		/* print the hands here */
+		/* print the hands */
 		printf("Hand %i \n",hand+1);
 		for(int cardhand=0;cardhand<5;cardhand++){
 			printf("Hand list: ");
 			printcard(hands[hand][cardhand]);
 		}
-		/* print the number and value of any pairs here */
+		
+		/* print the number and value of any pairs */
 		numpairs[hand]=findpairs(hands[hand]);
 		printf("Pairs in hand %i: %i. \n",hand+1, numpairs[hand]);
 	}
 
-	/* determine the winner and print it */
-	printf("Winner is hand %i \n",hand);
+	/* TODO determine the winner and print it */
+	/*compare number of pairs */
+	
+	/*if there are a tied number of pairs, compare values*/
+	
+	/*print winner*/
+	printf("Winner is hand %i \n",hand+1);
+	
 	return 0;
 }
 
@@ -105,27 +109,30 @@ pairs findpairs(card *hand)
 			//increment for each set of pairs found
 			numpairs++;
 			highest = testHighest((hand[i] >> 2) & 15,highest);
+			
 		};
 	}
 	//printf("how many pairs? %i \n",x);
- 
-	//arrange using bitwise functions
-	numpairs = (numpairs << 0) & 15; //moves ZERO to the left
+
+	/*arrange using bitwise functions*/
+	numpairs |= (highest << 4);
+	numpairs = (numpairs << 0) & 15; /*moves ZERO to the left*/
+
 	
-	 //printf("Code is %d%d%d%d. ", (numpairs>>3)&15,(numpairs>>2)&15,(numpairs>>1)&15,numpairs&15);
-	 if (numpairs >= 1){
-	 printf("Highest value: %s \n", values[highest]);
-	 }
+	//printf("Code is %d%d%d%d. ", (numpairs>>3)&15,(numpairs>>2)&15,(numpairs>>1)&15,numpairs&15);
+	if (numpairs >= 1){
+		printf("Highest value: %s \n", values[highest]);
+	}
 	return numpairs; 
 }
 
 int testHighest(int faceValue, pairs highest){
 
-if (faceValue > highest){
-	highest = faceValue;
-}
+	if (faceValue > highest){
+		highest = faceValue;
+	}
 
-return highest;
+	return highest;
 
 }
 
@@ -219,7 +226,8 @@ int compareface(const void* c1, const void *c2)
 	
 	int cdFace1 = (cd1 >> 2) & 15;
 	int cdFace2 = (cd2 >> 2) & 15;
-	/*/debugging code
+	
+	/* debugging code
 	printf("comparing: \n \t");
 	
 	printcard(cd1);printf("\t");
