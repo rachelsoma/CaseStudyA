@@ -84,11 +84,31 @@ int main()
 
 	/* TODO determine the winner and print it */
 	/*compare number of pairs */
-	
+	pairs currentWinner = 0;
+	for(hand=0;hand<5;hand++){
+		//current hand has more pairs
+		if ((numpairs[hand]& 15) > currentWinner){
+			currentWinner = hand;
+		}
+		//current hand has equal num pairs
+		if ((numpairs[hand]& 15) == currentWinner){ 
+			//compare values
+			if ((numpairs[hand] >> 4) > (numpairs[currentWinner] >> 4)){
+				currentWinner = hand;
+			}
+			if ((numpairs[hand] >> 4) == (numpairs[currentWinner] >> 4)){
+				currentWinner = -1;
+			}
+		}
+		/*print winner*/
+
+	}
 	/*if there are a tied number of pairs, compare values*/
 	
-	/*print winner*/
-	printf("Winner is hand %i \n",hand+1);
+		if (currentWinner > 0){printf("Winner is hand %i \n",currentWinner+1);}
+	if (currentWinner < 0){printf("It's a tie!");}
+	if (currentWinner = 0){printf("No winner");}
+	
 	
 	return 0;
 }
