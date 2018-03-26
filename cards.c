@@ -79,7 +79,7 @@ int main()
 		
 		/* print the number and value of any pairs */
 		numpairs[hand]=findpairs(hands[hand]);
-		printf("Pairs in hand %i: %i. \n",hand+1, numpairs[hand]);
+		printf("Pairs in hand %i: %i. \n",hand+1, (numpairs[hand]& 15));
 	}
 
 	/* TODO determine the winner and print it */
@@ -116,7 +116,7 @@ pairs findpairs(card *hand)
 
 	/*arrange using bitwise functions*/
 	numpairs |= (highest << 4);
-	numpairs = (numpairs << 0) & 15; /*moves ZERO to the left*/
+	numpairs |= (numpairs << 0) & 15; /*moves ZERO to the left*/
 
 	
 	//printf("Code is %d%d%d%d. ", (numpairs>>3)&15,(numpairs>>2)&15,(numpairs>>1)&15,numpairs&15);
