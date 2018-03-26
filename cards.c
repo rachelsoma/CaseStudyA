@@ -105,9 +105,9 @@ int main()
 	}
 	/*if there are a tied number of pairs, compare values*/
 	
-		if (currentWinner > 0){printf("Winner is hand %i \n",currentWinner+1);}
-	if (currentWinner < 0){printf("It's a tie!");}
-	if (currentWinner = 0){printf("No winner");}
+	if (currentWinner > 0){printf("Winner is hand %i \n",currentWinner+1);} ////highest number of pairs or highest value pair if numbers were the same
+	if (currentWinner < 0){printf("It's a tie!");} //there were pairs of the same highest value
+	if (currentWinner = 0){printf("No winner");} //there were no pairs in any hand
 	
 	
 	return 0;
