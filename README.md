@@ -1,2 +1,1 @@
-# CaseSyudyA
 # OSP CaseStudyA
