@@ -85,26 +85,28 @@ int main()
 	/* TODO determine the winner and print it */
 	/*compare number of pairs */
 	pairs currentWinner = 0;
+	int tempHighest  = 0;
 	for(hand=0;hand<5;hand++){
 		//current hand has more pairs
 		if ((numpairs[hand]& 15) > currentWinner){
 			currentWinner = hand;
+			tempHighest = (numpairs[hand] >> 4);
 		}
+		/*if there are a tied number of pairs, compare values*/
 		//current hand has equal num pairs
 		if ((numpairs[hand]& 15) == currentWinner){ 
 			//compare values
-			if ((numpairs[hand] >> 4) > (numpairs[currentWinner] >> 4)){
+			if ((numpairs[hand] >> 4) > tempHighest){
 				currentWinner = hand;
 			}
-			if ((numpairs[hand] >> 4) == (numpairs[currentWinner] >> 4)){
+			if ((numpairs[hand] >> 4) == tempHighest){
 				currentWinner = -1;
 			}
 		}
-		/*print winner*/
+		
 
 	}
-	/*if there are a tied number of pairs, compare values*/
-	
+	/*print winner*/
 	if (currentWinner > 0){printf("Winner is hand %i \n",currentWinner+1);} ////highest number of pairs or highest value pair if numbers were the same
 	if (currentWinner < 0){printf("It's a tie!");} //there were pairs of the same highest value
 	if (currentWinner = 0){printf("No winner");} //there were no pairs in any hand
